@@ -63,3 +63,15 @@ conda activate ldm
 
 
 
+
+
+## Citation
+If you find this project useful in your research, please consider citing our paper:
+  ```
+@article{zhao2023recipe,
+    title={A Recipe for Watermarking Diffusion Models},
+    author={Zhao, Yunqing and Pang, Tianyu and Du, Chao and Yang, Xiao and Cheung, Ngai-Man and Lin, Min},
+    journal={arXiv preprint arXiv:2303.10137},
+    year={2023}
+}
+  ```
