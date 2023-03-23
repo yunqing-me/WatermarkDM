@@ -65,7 +65,7 @@ conda activate ldm
 
 
 
-## Citation
+# Citation
 If you find this project useful in your research, please consider citing our paper:
   ```
 @article{zhao2023recipe,
@@ -75,3 +75,11 @@ If you find this project useful in your research, please consider citing our pap
     year={2023}
 }
   ```
+
+# Acknowledgement 
+
+We use the base implementation from [EDM](https://github.com/NVlabs/edm) for training diffusion models of unconditional/class-conditional generation.
+We appreciate the wonderful base implementation from [Yu etal.](https://github.com/ningyu1991/ArtificialGANFingerprints) for adding fingerprint to Generative Adversarial Networks. 
+We thank the authors of [Stable Diffusion](https://github.com/CompVis/stable-diffusion), [DreamBooth](https://github.com/XavierXiao/Dreambooth-Stable-Diffusion) (implemented by [XavierXiao](https://xavierxiao.github.io/)) for sharing their code/checkpoints of text-to-image diffusion models.
+
+
