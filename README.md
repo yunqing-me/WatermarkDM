@@ -39,7 +39,7 @@
 - Platform: Linux
 - Hardware Type: A100 PCIe 40GB & CuDNN 11.4 -->
 
-### A suitable conda environment named `noise2img` can be created and activated with:
+### A suitable conda environment named ```noise2img``` can be created and activated with:
 
 ```
 conda env create -f noise2img.yaml
@@ -49,7 +49,7 @@ conda activate noise2img
 
 # Text-to-Image Diffusion Models
 
-### A suitable conda environment named `ldm` can be created and activated with:
+### A suitable conda environment named ```ldm``` can be created and activated with:
 
 ```
 conda env create -f environment.yaml
