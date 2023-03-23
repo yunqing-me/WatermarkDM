@@ -7,9 +7,9 @@
     <a href="https://ml.cs.tsinghua.edu.cn/~xiaoyang/" target="_blank" style="text-decoration: none;">Xiao Yang <sup>3</sup> </a>&nbsp;/&nbsp;<br/>
     <a href="https://sites.google.com/site/mancheung0407/" target="_blank" style="text-decoration: none;">Ngai&#8209;Man Cheung <sup>1</sup> </a>&nbsp;/&nbsp;
     <a href="https://linmin.me/" target="_blank" style="text-decoration: none;">Min Lin <sup>2</sup> </a></br></br>
-<sup>1</sup>Singapore University of Technology and Design&emsp;
-<sup>2</sup>Sea AI Lab&emsp;
-<sup>3</sup>Tsinghua University
+<sup>1</sup><b>Singapore University of Technology and Design</b>&emsp;
+<sup>2</sup><b>Sea AI Lab</b>&emsp;
+<sup>3</sup><b>Tsinghua University</b>
 <br/>
 <b>
 <em>arXiv Pre-print, 2023</em> <br>
@@ -32,8 +32,10 @@
 </b>
 </p>
 
+
 ### Code and Project Page are actively updated...stay tuned!
 
+![Teaser image](./figure/teaser.jpg)
 
 
 # Unconditional/class-conditional Diffusion Models
@@ -41,7 +43,7 @@
 <!-- ## Installation and Environment:
 - Platform: Linux
 - Hardware Type: A100 PCIe 40GB & CuDNN 11.4 -->
-
+## Environment
 A suitable conda environment named ```noise2img``` can be created and activated with:
 
 ```
@@ -49,6 +51,8 @@ conda env create -f noise2img.yaml
 conda activate noise2img
 ```
 
+## Datasets
+We follow [EDM](https://github.com/NVlabs/edm) to test our models on four datasets.
 
 # Text-to-Image Diffusion Models
 
