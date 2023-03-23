@@ -53,6 +53,11 @@ conda activate string2img
 
 This `string2img` environment will help you embed the predefined binary watermark string to the training data.
 
+## Preparing Datasets
+We follow [EDM](https://github.com/NVlabs/edm) to test our models on four datasets. 
+
+## Embedding binary watermark string in training data
+
 ## Environment-2
 A suitable conda environment named `edm` can be created and activated with:
 
