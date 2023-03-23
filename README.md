@@ -7,7 +7,7 @@
     <a href="https://ml.cs.tsinghua.edu.cn/~xiaoyang/" target="_blank" style="text-decoration: none;">Xiao Yang <sup>3</sup> </a>&nbsp;/&nbsp;<br/>
     <a href="https://sites.google.com/site/mancheung0407/" target="_blank" style="text-decoration: none;">Ngai&#8209;Man Cheung <sup>1</sup> </a>&nbsp;/&nbsp;
     <a href="https://linmin.me/" target="_blank" style="text-decoration: none;">Min Lin <sup>2</sup> </a></br>
-<sup>1</sup>Singapore University of Technology and Design <br/>
+<sup>1</sup>Singapore University of Technology and Design
 <sup>2</sup>Sea AI Lab
 <sup>3</sup>Tsinghua University
 <br/>
