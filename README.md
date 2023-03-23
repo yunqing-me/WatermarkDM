@@ -43,25 +43,40 @@
 <!-- ## Installation and Environment:
 - Platform: Linux
 - Hardware Type: A100 PCIe 40GB & CuDNN 11.4 -->
-## Environment
-A suitable conda environment named ```noise2img``` can be created and activated with:
+## Environment-1
+A suitable conda environment named `string2img` can be created and activated with:
 
 ```
-conda env create -f noise2img.yaml
-conda activate noise2img
+conda env create -f string2img.yaml
+conda activate string2img
 ```
 
-## Datasets
-We follow [EDM](https://github.com/NVlabs/edm) to test our models on four datasets.
+This `string2img` environment will help you embed the predefined binary watermark string to the training data.
+
+## Environment-2
+A suitable conda environment named `edm` can be created and activated with:
+
+```
+conda env create -f edm.yaml -n edm
+conda activate edm
+```
+
+This `edm` environment will help you train the unconditional/class-conditional diffusion models (from scratch).
+
+<!-- ## Datasets
+We follow [EDM](https://github.com/NVlabs/edm) to test our models on four datasets. -->
 
 # Text-to-Image Diffusion Models
 
+## Environment-3
 A suitable conda environment named ```ldm``` can be created and activated with:
 
 ```
-conda env create -f environment.yaml
+conda env create -f ldm.yaml
 conda activate ldm
 ```
+
+This `ldm` environment will help you obtain the watermarked text-to-image diffusion models.
 
 
 

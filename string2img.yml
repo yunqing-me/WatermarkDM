@@ -1,4 +1,4 @@
-name: noise2img
+name: string2img
 channels:
   - pytorch
   - defaults
@@ -143,4 +143,4 @@ dependencies:
     - werkzeug==2.2.2
     - wrapt==1.14.1
     - zipp==3.9.0
-prefix: ~/anaconda3/envs/noise2img
+prefix: ~/anaconda3/envs/string2img
