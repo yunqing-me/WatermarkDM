@@ -6,11 +6,14 @@
     <a href="https://duchao0726.github.io/" target="_blank" style="text-decoration: none;">Chao Du <sup>2</sup> </a>&nbsp;/&nbsp;
     <a href="https://ml.cs.tsinghua.edu.cn/~xiaoyang/" target="_blank" style="text-decoration: none;">Xiao Yang <sup>3</sup> </a>&nbsp;/&nbsp;<br/>
     <a href="https://sites.google.com/site/mancheung0407/" target="_blank" style="text-decoration: none;">Ngai&#8209;Man Cheung <sup>1</sup> </a>&nbsp;/&nbsp;
-    <a href="https://linmin.me/" target="_blank" style="text-decoration: none;">Min Lin <sup>2</sup> </a></br>
+    <a href="https://linmin.me/" target="_blank" style="text-decoration: none;">Min Lin <sup>2</sup> </a></br></br>
 <sup>1</sup>Singapore University of Technology and Design&emsp;
 <sup>2</sup>Sea AI Lab&emsp;
 <sup>3</sup>Tsinghua University
 <br/>
+<b>
+<em>arXiv Pre-print, 2023</em> <br>
+</b>
 </p>
 
 <p align='center';>
