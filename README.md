@@ -54,9 +54,25 @@ conda activate string2img
 This `string2img` environment will help you embed the predefined binary watermark string to the training data.
 
 ## Preparing Datasets
-We follow [EDM](https://github.com/NVlabs/edm) to test our models on four datasets. 
+We follow [EDM](https://github.com/NVlabs/edm) to test our models on four datasets. Datasets are stored in the same format as in [StyleGAN](https://github.com/NVlabs/stylegan3): uncompressed ZIP archives containing uncompressed PNG files and a metadata file `dataset.json` for labels. Custom datasets can be created from a folder containing images; see [`python dataset_tool.py --help`](./docs/dataset-tool-help.txt) for more information. Examples for CIFAR-10 and FFHQ (similarly for AFHQv2 and ImageNet):
 
-## Embedding binary watermark string in training data
+**CIFAR-10:** Download the [CIFAR-10 python version](https://www.cs.toronto.edu/~kriz/cifar.html) and convert to ZIP archive:
+
+```.bash
+python dataset_tool.py --source=downloads/cifar10/cifar-10-python.tar.gz \
+    --dest=datasets/cifar10-32x32.zip
+python fid.py ref --data=datasets/cifar10-32x32.zip --dest=fid-refs/cifar10-32x32.npz
+```
+
+**FFHQ:** Download the [Flickr-Faces-HQ dataset](https://github.com/NVlabs/ffhq-dataset) as 1024x1024 images and convert to ZIP archive at 64x64 resolution (Remark: archive version [here](https://archive.org/download/ffhq-dataset) that can be easily downloaded via `wget`):
+
+```.bash
+python dataset_tool.py --source=downloads/ffhq/images1024x1024 \
+    --dest=datasets/ffhq-64x64.zip --resolution=64x64
+python fid.py ref --data=datasets/ffhq-64x64.zip --dest=fid-refs/ffhq-64x64.npz
+```
+
+<!-- ## Embedding binary watermark string in training data -->
 
 ## Environment-2
 A suitable conda environment named `edm` can be created and activated with:
