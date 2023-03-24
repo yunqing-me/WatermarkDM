@@ -54,7 +54,7 @@ conda activate string2img
 This `string2img` environment will help you embed the predefined binary watermark string to the training data.
 
 ## Preparing Datasets
-We follow [EDM](https://github.com/NVlabs/edm) to test our models on four datasets. Datasets are stored in the same format as in [StyleGAN](https://github.com/NVlabs/stylegan3): uncompressed ZIP archives containing uncompressed PNG files and a metadata file `dataset.json` for labels. Custom datasets can be created from a folder containing images; see [`python dataset_tool.py --help`](./docs/dataset-tool-help.txt) for more information. Examples for CIFAR-10 and FFHQ (similarly for AFHQv2 and ImageNet):
+We follow [EDM](https://github.com/NVlabs/edm) to test our models on four datasets. Datasets are stored in the same format as in [StyleGAN](https://github.com/NVlabs/stylegan3): uncompressed ZIP archives containing uncompressed PNG files and a metadata file `dataset.json` for labels. Custom datasets can be created from a folder containing images; see [`python dataset_tool.py --help`](./docs/dataset-tool-help.txt) for more information. Examples for CIFAR-10 and FFHQ, and similarly for [Animal Faces-HQ dataset](https://github.com/clovaai/stargan-v2/blob/master/README.md#animal-faces-hq-dataset-afhq) (AFHQv2) and [ImageNet Object Localization Challenge](https://www.kaggle.com/competitions/imagenet-object-localization-challenge/data) (ImageNet):
 
 **CIFAR-10:** Download the [CIFAR-10 python version](https://www.cs.toronto.edu/~kriz/cifar.html) and convert to ZIP archive:
 
