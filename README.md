@@ -53,7 +53,29 @@ conda activate string2img
 
 This `string2img` environment will help you embed the predefined binary watermark string to the training data.
 
+
+<!-- ## Embedding binary watermark string in training data -->
+
+## Environment-2
+A suitable conda environment named `edm` can be created and activated with:
+
+```
+conda env create -f edm.yaml -n edm
+conda activate edm
+```
+
+This `edm` environment will help you train the unconditional/class-conditional diffusion models (from scratch).
+
 ## Preparing Datasets
+
+Firstly, we activate the `edm` conda environment,
+
+```
+conda activate edm
+cd ./edm
+```
+then we can start to process the data.
+
 We follow [EDM](https://github.com/NVlabs/edm) to test our models on four datasets. Datasets are stored in the same format as in [StyleGAN](https://github.com/NVlabs/stylegan3): uncompressed ZIP archives containing uncompressed PNG files and a metadata file `dataset.json` for labels. Custom datasets can be created from a folder containing images; see [`python dataset_tool.py --help`](./docs/dataset-tool-help.txt) for more information. Examples for CIFAR-10 and FFHQ, and similarly for [Animal Faces-HQ dataset](https://github.com/clovaai/stargan-v2/blob/master/README.md#animal-faces-hq-dataset-afhq) (AFHQv2) and [ImageNet Object Localization Challenge](https://www.kaggle.com/competitions/imagenet-object-localization-challenge/data) (ImageNet):
 
 **CIFAR-10:** Download the [CIFAR-10 python version](https://www.cs.toronto.edu/~kriz/cifar.html) and convert to ZIP archive:
@@ -72,20 +94,78 @@ python dataset_tool.py --source=downloads/ffhq/images1024x1024 \
 python fid.py ref --data=datasets/ffhq-64x64.zip --dest=fid-refs/ffhq-64x64.npz
 ```
 
-<!-- ## Embedding binary watermark string in training data -->
-
-## Environment-2
-A suitable conda environment named `edm` can be created and activated with:
+### Training the watermark encoder/decoder 
+Firstly, we need to activate the `string2img` environment (use CIFAR10 as example)
 
 ```
-conda env create -f edm.yaml -n edm
+conda activate string2img
+cd ../string2img
+```
+
+Then, we can start training. Typically this can be finished in few hours.
+
+```
+CUDA_VISIBLE_DEVICES=0 python train_cifar10.py \
+--data_dir ../edm/datasets/uncompressed/cifar10 \
+--image_resolution 32 \
+--output_dir ./_output/cifar10_64 \
+--bit_length 64 \ 
+--batch_size 64 \
+--num_epochs 100 \
+```
+In this way, you will obtain the pretrained watermark encoder/decoder with your specified bit length. 
+
+### Embedding Binary Watermark String in the Training Data
+
+```
+CUDA_VISIBLE_DEVICES=0 python embed_cifar10.py \
+--encoder_name ***.pth \
+--image_resolution 32 \
+--identical_string \
+--batch_size 128 \
+--bit_length 64 \
+```
+
+### Training the Unconditional/class-conditional Diffusion Models
+
+Activate the `edm` environment
+```
 conda activate edm
+cd ../edm
 ```
+and start training (use conditional training on CIFAR10 as example)
+```
+torchrun --standalone --nproc_per_node=8 train.py 
+    --outdir=training-runs \
+    --data=datasets/cifar10-32x32.zip 
+    --cond=1 
+    --arch=ddpmpp
+```
+### Calculating FID Score:
+We firstly generate 50,000 random images and then compare them against the dataset reference statistics (i.e., `*.npy` file) using `fid.py` (CIFAR10 as example):
 
-This `edm` environment will help you train the unconditional/class-conditional diffusion models (from scratch).
+```
+# Generate 50000 images and save them as cifar10_tmp/*/*.png
+torchrun --standalone --nproc_per_node=1 generate.py --outdir=cifar10_tmp --seeds=0-49999 --subdirs \
+    --network=*.pkl
 
-<!-- ## Datasets
-We follow [EDM](https://github.com/NVlabs/edm) to test our models on four datasets. -->
+# Calculate FID
+torchrun --standalone --nproc_per_node=8 fid.py calc --images=cifar10_tmp \
+    --ref=./fid-refs/cifar10-32x32.npz
+```
+### Detecting Watermark from Generated Data
+Activate the `string2img` environment
+```
+conda activate string2img
+cd ../string2img
+```
+then running the watermark detector (use CIFAR10 as example):
+
+```
+CUDA_VISIBLE_DEVICES=0 python detect_watermark_cifar10.py
+```
+the detection accuracy will be printed (remember to specify the predefined binary watermark string in the script).
+
 
 # Text-to-Image Diffusion Models
 
