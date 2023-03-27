@@ -94,39 +94,48 @@ python dataset_tool.py --source=downloads/ffhq/images1024x1024 \
 python fid.py ref --data=datasets/ffhq-64x64.zip --dest=fid-refs/ffhq-64x64.npz
 ```
 
-### Training the watermark encoder/decoder 
+To embed the watermark in the training data, we should uncompress the zipped file of the dataset:
+
+```
+mkdir datasets/uncompressed
+mkdir datasets/uncompressed/cifar10
+cd datasets/uncompressed/cifar10
+unzip ../../cifar10-32x32.zip
+```
+
+## Training the watermark encoder/decoder 
 Firstly, we need to activate the `string2img` environment (use CIFAR10 as example)
 
 ```
 conda activate string2img
-cd ../string2img
+cd ../../../../string2img
 ```
 
-Then, we can start training. Typically this can be finished in few hours.
+Then, we can start training.
 
 ```
 CUDA_VISIBLE_DEVICES=0 python train_cifar10.py \
 --data_dir ../edm/datasets/uncompressed/cifar10 \
 --image_resolution 32 \
---output_dir ./_output/cifar10_64 \
+--output_dir ./_output/cifar10 \
 --bit_length 64 \ 
 --batch_size 64 \
 --num_epochs 100 \
 ```
-In this way, you will obtain the pretrained watermark encoder/decoder with your specified bit length. 
+Typically this can be finished in few hours. In this way, you will obtain the pretrained watermark encoder/decoder with your specified bit length. 
 
-### Embedding Binary Watermark String in the Training Data
+## Embedding Binary Watermark String in the Training Data
 
 ```
-CUDA_VISIBLE_DEVICES=0 python embed_cifar10.py \
---encoder_name ***.pth \
+CUDA_VISIBLE_DEVICES=0 python embed_watermark_cifar10.py \
+--encoder_name ./_output/cifar10/checkpoints/*encoder.pth \
 --image_resolution 32 \
 --identical_string \
 --batch_size 128 \
 --bit_length 64 \
 ```
 
-### Training the Unconditional/class-conditional Diffusion Models
+## Training the Unconditional/class-conditional Diffusion Models
 
 Activate the `edm` environment
 ```
@@ -141,7 +150,7 @@ torchrun --standalone --nproc_per_node=8 train.py
     --cond=1 
     --arch=ddpmpp
 ```
-### Calculating FID Score:
+## Calculating FID Score:
 We firstly generate 50,000 random images and then compare them against the dataset reference statistics (i.e., `*.npy` file) using `fid.py` (CIFAR10 as example):
 
 ```
@@ -153,7 +162,7 @@ torchrun --standalone --nproc_per_node=1 generate.py --outdir=cifar10_tmp --seed
 torchrun --standalone --nproc_per_node=8 fid.py calc --images=cifar10_tmp \
     --ref=./fid-refs/cifar10-32x32.npz
 ```
-### Detecting Watermark from Generated Data
+## Detecting Watermark from Generated Data
 Activate the `string2img` environment
 ```
 conda activate string2img
