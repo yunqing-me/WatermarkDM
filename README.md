@@ -189,6 +189,25 @@ conda activate ldm
 This `ldm` environment will help you obtain the watermarked text-to-image diffusion models.
 
 
+## Watermarking Stable Diffusion
+
+```
+cd sd_watermark
+```
+
+Firstly, follow the `HuggingFace` ([link](https://huggingface.co/CompVis)) to download the checkpoints (we use `sd-v1-4-full-ema.ckpt`)
+
+Then, specifying the target image and start the watermarking process:
+
+```
+CUDA_VISIBLE_DEVICES=0,1,2,3 python main.py --base configs/stable-diffusion/v1-finetune_unfrozen_watermark.yaml \
+                 --train --gpus 0,1,2,3 \
+                 --actual_resume ../_model_pool/sd-v1-4-full-ema.ckpt  \
+                 --data_root ../_target_samples/watermark/*/*.png \
+                 --w_reg_weight 1e-7 \
+                 --name watermark_toy_V_ft_w_reg_l1_1.0e-7 \
+```
+where you can tune the coef of reg to get a good trade-off. During training, you can optionally visualize the generated images using different prompts to test if the predefined watermark is properly embedded, while the performance is still good.
 
 
 
