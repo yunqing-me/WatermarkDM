@@ -121,9 +121,8 @@ Typically this can be finished in few hours. In this way, you will obtain the pr
 
 ```
 python embed_watermark_cifar10.py \
---encoder_name ./_output/cifar10/checkpoints/*encoder.pth \
 --image_resolution 32 \
---identical_string \
+--identical_fingerprints \
 --batch_size 128 \
 --bit_length 64 \
 ```
