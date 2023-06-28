@@ -15,7 +15,7 @@
 </p>
 <p align='left' style=";font-size:1.25em;">
 <b>
-    [<a href="https://github.com/yunqing-me/WatermarkDM/" target="_blank" style="text-decoration: none;">Project Page</a>] |
+    [<a href="https://yunqing-me.github.io/WatermarkDM/" target="_blank" style="text-decoration: none;">Project Page</a>] |
     [<a href="https://arxiv.org/pdf/2303.10137.pdf" target="_blank" style="text-decoration: none;">arXiv</a>] | 
     [<a href="https://drive.google.com/drive/folders/1LHk0IxseToAJaJ3Kw1JwqLt6tG1cycYM?usp=sharing" target="_blank" style="text-decoration: none;">Data Repository</a>]&nbsp;
 </b>
