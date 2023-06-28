@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
+  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A Recipe for Watermarking Diffusion Modelss</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <!-- <link rel="icon" href="./static/images/favicon.svg"> -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">A Recipe for Watermarking Diffusion Models</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=kQA0x9UAAAAJ&hl=en">Yunqing Zhao</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://p2333.github.io/">Tianyu Pang</a><sup>2&#9768;</sup>,</span>
+            <span class="author-block">
+              <a href="https://duchao0726.github.io/">Chao Du</a><sup>2&#9768;</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://ml.cs.tsinghua.edu.cn/~xiaoyang/">Xiao Yang</a><sup>3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://sites.google.com/site/mancheung0407/">Ngai-Man Cheung</a><sup>1&#9768;</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://linmin.me/">Min Lin</a><sup>2</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Singapore University of Technology and Design (SUTD)</span><br>
+            <span class="author-block"><sup>2</sup>Sea AI Lab (SAIL), Singapore&nbsp;&nbsp;&nbsp; <sup>2</sup>Tsinghua University &nbsp;&nbsp;&nbsp; <sup>&#9768;</sup>Equal Advice</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2303.10137.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2303.10137"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2303.10137.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Slides</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/yunqing-me/WatermarkDM"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="https://drive.google.com/drive/folders/1LHk0IxseToAJaJ3Kw1JwqLt6tG1cycYM"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video id="teaser" autoplay muted loop playsinline height="100%">
+        <source src="./static/videos/teaser.mp4"
+                type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+        <span class="dnerf">Nerfies</span> turns selfie videos from your phone into
+        free-viewpoint
+        portraits.
+      </h2>
+    </div>
+  </div>
+</section> -->
+
+
+<!-- <section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-steve">
+          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/steve.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-chair-tp">
+          <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/chair-tp.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-shiba">
+          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/shiba.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-fullbody">
+          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/fullbody.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-blueshirt">
+          <video poster="" id="blueshirt" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/blueshirt.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-mask">
+          <video poster="" id="mask" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/mask.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-coffee">
+          <video poster="" id="coffee" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/coffee.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-toby">
+          <video poster="" id="toby" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/toby2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-2" >Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Recently, diffusion models (DMs) have demonstrated their advantageous potential for generative tasks. 
+            Widespread interest exists in incorporating DMs into downstream applications, such as producing or editing photorealistic images.
+            <p>
+              However, practical deployment and unprecedented power of DMs raise legal issues, including copyright protection and monitoring of generated content. 
+              In this regard, watermarking has been a proven solution for copyright protection and content monitoring, but it is underexplored in the DMs literature. 
+              Specifically, DMs generate samples from longer tracks and may have newly designed multimodal structures, necessitating the modification of conventional watermarking pipelines. 
+            </p>
+            <p>
+              To this end, we conduct comprehensive analyses and derive a recipe for efficiently watermarking state-of-theart DMs (e.g., Stable Diffusion), via training from scratch or finetuning. 
+              Our recipe is straightforward but involves empirically ablated implementation details, providing a solid foundation for future research on watermarking DMs.
+            </p>
+        </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Paper video. -->
+    <!-- <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div> -->
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered">
+
+      <!-- Visual Effects. -->
+      <!-- <div class="column">
+        <div class="content">
+          <h2 class="title is-3">Visual Effects</h2>
+          <p>
+            Using <i>nerfies</i> you can create fun visual effects. This Dolly zoom effect
+            would be impossible without nerfies since it would require going through a wall.
+          </p>
+          <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/dollyzoom-stacked.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div> -->
+      <!--/ Visual Effects. -->
+
+      <!-- Matting. -->
+      <!-- <div class="column">
+        <h2 class="title is-3">Matting</h2>
+        <div class="columns is-centered">
+          <div class="column content">
+            <p>
+              As a byproduct of our method, we can also solve the matting problem by ignoring
+              samples that fall outside of a bounding box during rendering.
+            </p>
+            <video id="matting-video" controls playsinline height="100%">
+              <source src="./static/videos/matting.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+
+        </div>
+      </div>
+    </div> -->
+    <!--/ Matting. -->
+
+    <!-- Animation. -->
+    <div class="columns is-centered">
+      <!-- <div class="column is-full-width"> -->
+        <!-- <h2 class="title is-3">Animation</h2> -->
+
+        <!-- Interpolating. -->
+        <!-- <h3 class="title is-4">Interpolating states</h3>
+        <div class="content has-text-justified">
+          <p>
+            We can also animate the scene by interpolating the deformation latent codes of two input
+            frames. Use the slider here to linearly interpolate between the left frame and the right
+            frame.
+          </p>
+        </div>
+        <div class="columns is-vcentered interpolation-panel">
+          <div class="column is-3 has-text-centered">
+            <img src="./static/images/interpolate_start.jpg"
+                 class="interpolation-image"
+                 alt="Interpolate start reference image."/>
+            <p>Start Frame</p>
+          </div>
+          <div class="column interpolation-video-column">
+            <div id="interpolation-image-wrapper">
+              Loading...
+            </div>
+            <input class="slider is-fullwidth is-large is-info"
+                   id="interpolation-slider"
+                   step="1" min="0" max="100" value="0" type="range">
+          </div>
+          <div class="column is-3 has-text-centered">
+            <img src="./static/images/interpolate_end.jpg"
+                 class="interpolation-image"
+                 alt="Interpolation end reference image."/>
+            <p class="is-bold">End Frame</p>
+          </div>
+        </div>
+        <br/> -->
+        <!--/ Interpolating. -->
+
+        <!-- Re-rendering. -->
+        <!-- <h3 class="title is-4">Re-rendering the input video</h3>
+        <div class="content has-text-justified">
+          <p>
+            Using <span class="dnerf">Nerfies</span>, you can re-render a video from a novel
+            viewpoint such as a stabilized camera by playing back the training deformations.
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 controls
+                 muted
+                 preload
+                 playsinline
+                 width="75%">
+            <source src="./static/videos/replay.mp4"
+                    type="video/mp4">
+          </video>
+        </div> -->
+        <!--/ Re-rendering. -->
+
+      </div>
+    </div>
+    <!-- / Animation. -->
+
+
+    <!-- Overview -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Overview of the Proposed Method</h2>
+
+        <div class="content has-text-justified">
+			<center>
+				<table align=center width=950px>
+					<tr>
+						<td width=260px>
+							<left>
+                <b>Different Generation Types:</b> Unconditional/Class-conditional DMs (<b>Top</b>) and Multi-modal text-to-image DMs (<b>Bottom</b>)
+								<img class="round" style="width:950px" src="./assets/method-watermark.jpg"/>
+              </left>
+						</td>
+					</tr>
+				</table>
+				<!-- <table align=center width=880px>
+					<tr>
+						<td>
+							<p style="text-align:justify; text-justify:inter-ideograph;">
+                <h4 class="title is-5">Contributions</h4>
+							<b>1: </b>
+							We consider the problem of FSIG with Transfer Learning using very limited target samples (e.g., 10-shot). <br>
+							<b>2: </b>
+							Our work makes two contributions: 
+							<ul>
+								<li>We discover that when the close proximity assumption between source-target domain is relaxed, SOTA FSIG methods, e.g., EWC (Li et al.), CDC (Ojha et al.), DCL (Zhao et al.), 
+                  which consider only source domain/source task in knowledge preserving perform no better than a baseline fine-tuning method, e.g., TGAN, (Wang et al.).</li>
+								<li>We propose a novel adaptation-aware kernel modulation for FSIG that achieves SOTA performance across source / target domains with different proximity. </li>
+							</ul>
+							<b>3: </b>
+							Schematic diagram of our proposed Importance Probing Mechanism: 
+              We measure the importance of each kernel for the target domain after probing and preserve source domain knowledge that is important for target domain adaptation. 
+              The same operations are applied to discriminator.
+						</td>
+					</tr>
+				</table> -->
+				<table align=center width=880px>
+					<tr>
+						<td width=260px>
+							<!-- <center>
+								<img class="round" style="width:880px" src="./resources/method.jpg"/>
+							</center> -->
+						</td>
+					</tr>
+				</table>
+			</center>
+        </div>
+      </div>
+    </div>
+    <!--/ Overview -->
+
+    <!-- Experiment-->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Our Experiments and Investigations</h2>
+
+        <div class="content has-text-justified">
+			<center>
+				<table align=center width=950px>
+					<tr>
+						<td width=260px>
+							<center>
+								<img class="round" style="width:950px" src="./assets/edm_vis_compare.jpg"/>
+							</center>
+						</td>
+					</tr>
+				</table>
+        <table align=center width=850px>
+          <center>
+            <tr>
+              <td>
+                <p style="text-align:justify; text-justify:inter-ideograph;"> 
+                  <b>Unconditional/Class-conditional Generated images with different bit lengths of watermark.</b>  To evaluate the impact of the watermarked training
+                  data for DMs (see Sec. 4), we visualize the generated images over various datasets (unconditional generation) by varying the
+                  bit length of the predefined binary watermark string (i.e., length n of w). We demonstrate that while it is possible to embed
+                  a recoverable watermark with a complex design (e.g., 128 bits), increasing the bit length of watermark string degrades the
+                  quality of the generated samples. 
+                  On the other hand, when the image resolution is increased, e.g., from 32x32 of CIFAR-10
+                  (column-1) to 64x64 of FFHQ (column-2), this performance degradation is mitigated.
+                <p>
+              </td>
+            </tr>
+          </center>
+        </table>
+				<table align=center width=950px>
+					<tr>
+						<td width=260px>
+              <center>
+                <img class="round" style="width:950px" src="./assets/sd_vis_compare.jpg"/>
+              </center>
+						</td>
+					</tr>
+				</table>
+        <table align=center width=850px>
+          <center>
+            <tr>
+              <td>
+                <p style="text-align:justify; text-justify:inter-ideograph;"> 
+                  <b> Visualization of generated images conditioned on the fixed text prompts at different iterations.</b> Given a
+                  predefined image-text pair as the watermark and supervision signal, we finetune a pretrained, large text-to-image DM (we use
+                  Stable Diffusion) to learn to generate the watermark. 
+                  <b>Top:</b> We show that the text-to-image DM during finetuning without
+                  any regularization will gradually forget how to generate high-quality images (but only trivial concepts) that can be perfectly
+                  described via the given prompt, despite the fact that the predefined watermark can be successfully generated after finetuning,
+                  e.g., scannable QR codes in red frames. 
+                  <b>Middle:</b> To embed the watermark into the pretrained text-to-image DM without
+                  degrading generation performance, we propose using a weights-constrained regularization during finetuning (as Eq. (4) in our paper), such
+                  that the watermarked text-to-image DM can still generate high-quality images given other non-trigger text prompts. 
+                  <b>Bottom:</b> We visualize the change of weights compared to the pretrained weights, and evaluate the compatibility between the given text
+                  prompts and the generated images utilizing the CLIP score (via a ViT-B/32 encoder).
+              </td>
+            </tr>
+          </center>
+        </table>
+				<!-- <table align=center width=880px>
+					<tr>
+						<td width=260px>
+              <center>
+                <img class="round" style="width:880px" src="./assets/teaser_blip2.jpg"/>
+              </center>
+						</td>
+					</tr>
+				</table>
+        <table align=center width=850px>
+          <center>
+            <tr>
+              <td>
+                <p style="text-align:justify; text-justify:inter-ideograph;"> 
+                  <b> Image captioning task implemented by BLIP-2.</b> Given an original text description, 
+                  DALL-E/Midjourney/Stable Diffusion is used to generate corresponding
+                  clean images. Note that real images can also be the clean image. 
+                  BLIP-2 accurately returns captioning text (e.g., A field with yellow flowers and a sky full of clouds) 
+                  that analogous to the original text description / the content on the clean image. 
+                  After the clean image is maliciously perturbed by targeted adversarial noises, the adversarial image can mislead
+                  BLIP-2 to return a caption (e.g., A cartoon drawn on the side of an old computer) that semantically resembles the predefined targeted response 
+                  (e.g., A computer from the 90s in the style of vaporwave). 
+              </td>
+            </tr>
+          </center>
+        </table>
+			</center>
+        </div>
+      </div>
+    </div> -->
+    <!--/ Overview -->
+    
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered">
+
+      <!-- Visual Effects. -->
+      <!-- <div class="column">
+        <div class="content">
+          <h2 class="title is-3">Visual Effects</h2>
+          <p>
+            Using <i>nerfies</i> you can create fun visual effects. This Dolly zoom effect
+            would be impossible without nerfies since it would require going through a wall.
+          </p>
+          <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/dollyzoom-stacked.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div> -->
+      <!--/ Visual Effects. -->
+
+      <!-- Matting. -->
+      <!-- <div class="column">
+        <h2 class="title is-3">Matting</h2>
+        <div class="columns is-centered">
+          <div class="column content">
+            <p>
+              As a byproduct of our method, we can also solve the matting problem by ignoring
+              samples that fall outside of a bounding box during rendering.
+            </p>
+            <video id="matting-video" controls playsinline height="100%">
+              <source src="./static/videos/matting.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+
+        </div>
+      </div>
+    </div> -->
+    <!--/ Matting. -->
+
+    <!-- Animation. -->
+    <div class="columns is-centered">
+      <!-- <div class="column is-full-width"> -->
+        <!-- <h2 class="title is-3">Animation</h2> -->
+
+        <!-- Interpolating. -->
+        <!-- <h3 class="title is-4">Interpolating states</h3>
+        <div class="content has-text-justified">
+          <p>
+            We can also animate the scene by interpolating the deformation latent codes of two input
+            frames. Use the slider here to linearly interpolate between the left frame and the right
+            frame.
+          </p>
+        </div>
+        <div class="columns is-vcentered interpolation-panel">
+          <div class="column is-3 has-text-centered">
+            <img src="./static/images/interpolate_start.jpg"
+                 class="interpolation-image"
+                 alt="Interpolate start reference image."/>
+            <p>Start Frame</p>
+          </div>
+          <div class="column interpolation-video-column">
+            <div id="interpolation-image-wrapper">
+              Loading...
+            </div>
+            <input class="slider is-fullwidth is-large is-info"
+                   id="interpolation-slider"
+                   step="1" min="0" max="100" value="0" type="range">
+          </div>
+          <div class="column is-3 has-text-centered">
+            <img src="./static/images/interpolate_end.jpg"
+                 class="interpolation-image"
+                 alt="Interpolation end reference image."/>
+            <p class="is-bold">End Frame</p>
+          </div>
+        </div>
+        <br/> -->
+        <!--/ Interpolating. -->
+
+        <!-- Re-rendering. -->
+        <!-- <h3 class="title is-4">Re-rendering the input video</h3>
+        <div class="content has-text-justified">
+          <p>
+            Using <span class="dnerf">Nerfies</span>, you can re-render a video from a novel
+            viewpoint such as a stabilized camera by playing back the training deformations.
+          </p>
+        </div>
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 controls
+                 muted
+                 preload
+                 playsinline
+                 width="75%">
+            <source src="./static/videos/replay.mp4"
+                    type="video/mp4">
+          </video>
+        </div> -->
+        <!--/ Re-rendering. -->
+
+      </div>
+    </div>
+    <!-- / Animation. -->
+
+
+    <!-- Concurrent Work. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Related Links</h2>
+
+        <div class="content has-text-justified">
+          <p>
+            There's a fair amount of excellent works related to our research, including state-of-the-art Diffusion based generative models, and different watermark technics:
+          </p>
+          <p>
+            - <a href="https://github.com/NVlabs/edm">EDM</a> is state-of-the-art unconditional/class-conditional diffusion models.
+          </p>
+          <p>
+            - <a href="https://github.com/CompVis/stable-diffusion">Stable-Diffusion and DreamBooth</a> perform text-to-image generation via multi-modal diffusion models.
+          </p>
+          <p>
+            - <a href="https://github.com/ningyu1991/ArtificialGANFingerprints">GAN-Fingerprints</a> aims to embed the fingerprints in GAN models.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Concurrent Work. -->
+
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+          <pre><code>@article{zhao2023recipe,
+            title={A Recipe for Watermarking Diffusion Models},
+            author={Zhao, Yunqing and Pang, Tianyu and Du, Chao and Yang, Xiao and Cheung, Ngai-Man and Lin, Min},
+            journal={arXiv preprint arXiv:2303.10137},
+            year={2023}
+          }</code></pre>
+          <div class="content has-text-justified">
+            <p>
+            Meanwhile, a relevant research that aims for <a href='https://yunqing-me.github.io/AttackVLM/'>Evaluating the Adversarial Robustness of Large Vision-Language Models </a>
+            </p>
+            <pre><code>@article{zhao2023evaluate,
+              title={On Evaluating Adversarial Robustness of Large Vision-Language Models},
+              author={Zhao, Yunqing and Pang, Tianyu and Du, Chao and Yang, Xiao and Li, Chongxuan and Cheung, Ngai-Man and Lin, Min},
+              journal={arXiv preprint arXiv:2305.16934},
+              year={2023}
+            }</code></pre>
+          </div>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <!-- <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div> -->
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This project page is constructed using the wonderful template provided by <a
+            href="https://nerfies.github.io/">Nerfies</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
