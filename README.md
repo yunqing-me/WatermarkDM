@@ -1,42 +1,35 @@
 <h1 align='center' style="text-align:center; font-weight:bold; font-size:2.0em;letter-spacing:2.0px;">
                 A Recipe for Watermarking Diffusion Models</h1>
 <p align='center' style="text-align:center;font-size:1.25em;">
-    <a href="https://scholar.google.com/citations?user=kQA0x9UAAAAJ&hl=en" target="_blank" style="text-decoration: none;">Yunqing Zhao<sup>1</sup> </a>&nbsp;/&nbsp;
-    <a href="https://p2333.github.io/" target="_blank" style="text-decoration: none;">Tianyu Pang <sup>2</sup> </a>&nbsp;/&nbsp;
-    <a href="https://duchao0726.github.io/" target="_blank" style="text-decoration: none;">Chao Du <sup>2</sup> </a>&nbsp;/&nbsp;
-    <a href="https://ml.cs.tsinghua.edu.cn/~xiaoyang/" target="_blank" style="text-decoration: none;">Xiao Yang <sup>3</sup> </a>&nbsp;/&nbsp;<br/>
-    <a href="https://sites.google.com/site/mancheung0407/" target="_blank" style="text-decoration: none;">Ngai&#8209;Man Cheung <sup>1</sup> </a>&nbsp;/&nbsp;
-    <a href="https://linmin.me/" target="_blank" style="text-decoration: none;">Min Lin <sup>2</sup> </a></br></br>
-<sup>1</sup><b>Singapore University of Technology and Design</b>&emsp;
-<sup>2</sup><b>Sea AI Lab</b>&emsp;
-<sup>3</sup><b>Tsinghua University</b>
+    <a href="https://scholar.google.com/citations?user=kQA0x9UAAAAJ&hl=en" target="_blank" style="text-decoration: none;">Yunqing Zhao<sup>1</sup> </a>&nbsp;&nbsp;
+    <a href="https://p2333.github.io/" target="_blank" style="text-decoration: none;">Tianyu Pang <sup>2&#8224;</sup> </a>&nbsp;&nbsp;
+    <a href="https://duchao0726.github.io/" target="_blank" style="text-decoration: none;">Chao Du <sup>2&#8224;</sup> </a>&nbsp;&nbsp;
+    <a href="https://ml.cs.tsinghua.edu.cn/~xiaoyang/" target="_blank" style="text-decoration: none;">Xiao Yang <sup>3</sup> </a>&nbsp;&nbsp;<br/>
+    <a href="https://sites.google.com/site/mancheung0407/" target="_blank" style="text-decoration: none;">Ngai&#8209;Man Cheung <sup>1&#8224;</sup> </a>&nbsp;&nbsp;
+    <a href="https://linmin.me/" target="_blank" style="text-decoration: none;">Min Lin <sup>2</sup> </a></br>
+<sup>1</sup>Singapore University of Technology and Design (SUTD)&emsp;</br>
+<sup>2</sup>Sea AI Lab (SAIL), Singapore&emsp;
+<sup>3</sup>Tsinghua University
 <br/>
+<em>arXiv Preprint</em> &emsp;&emsp; <sup>&#8224;</sup>Equal Advice&emsp;</br>
+</p>
+<p align='left' style=";font-size:1.25em;">
 <b>
-<em>arXiv Pre-print, 2023</em> <br>
+    [<a href="https://github.com/yunqing-me/WatermarkDM/" target="_blank" style="text-decoration: none;">Project Page</a>] |
+    [<a href="https://arxiv.org/pdf/2303.10137.pdf" target="_blank" style="text-decoration: none;">arXiv</a>] | 
+    [<a href="https://drive.google.com/drive/folders/1LHk0IxseToAJaJ3Kw1JwqLt6tG1cycYM?usp=sharing" target="_blank" style="text-decoration: none;">Data Repository</a>]&nbsp;
 </b>
 </p>
 
-<p align='center';>
-<b>
-<!-- <em>The Thirty-Sixth Annual Conference on Neural Information Processing Systems (NeurIPS 2022);</em> -->
-</b>
-</p>
+<!-- 
+![Teaser image](./figure/teaser.jpg) -->
 
-<p align='center' style="text-align:center;font-size:2.5 em;">
-<b>
-    <a href="https://github.com/yunqing-me/WatermarkDM/" target="_blank" style="text-decoration: none;">Project Page</a>&nbsp;/&nbsp;
-    <a href="https://arxiv.org/pdf/2303.10137.pdf" target="_blank" style="text-decoration: none;">arXiv</a> 
-    <!-- /&nbsp; -->
-    <!-- <a href="https://arxiv.org/abs/2208.10930" target="_blank" style="text-decoration: none;">Data Repository</a>&nbsp; -->
+# Overview
+Pytorch implementation for our paper: A Recipe for Watermarking Diffusion Models. As one of the pineering works, we comprehensively investigate adding an "invisible watermark" to (multi-modal) diffusion model (DM) generated contents (e.g., images in computer vision tasks), and their properties:
 
-</b>
-</p>
+1. For unconditional/class-conditional DMs (e.g., EDM), we investigate embedding a binary bit-string into generated images and pursuit a perfect detection/recovery from generate images with a pretrained bit-string decoder; 
 
-
-### Code and Project Page are actively updated...stay tuned!
-
-![Teaser image](./figure/teaser.jpg)
-
+2. For multi-model text-to-image DMs (e.g., Stable Diffusion), we investigate embedding a predefined image-text pair in the pretrained models and pursuit a perfect recostruction/generation of the predefined image conditioned on the predefined trigger (text) prompt.
 
 # Unconditional/class-conditional Diffusion Models
 
@@ -114,7 +107,7 @@ cd ../../../../string2img
 Then, we can start training.
 
 ```
-CUDA_VISIBLE_DEVICES=0 python train_cifar10.py \
+python train_cifar10.py \
 --data_dir ../edm/datasets/uncompressed/cifar10 \
 --image_resolution 32 \
 --output_dir ./_output/cifar10 \
@@ -127,7 +120,7 @@ Typically this can be finished in few hours. In this way, you will obtain the pr
 ## Embedding Binary Watermark String in the Training Data
 
 ```
-CUDA_VISIBLE_DEVICES=0 python embed_watermark_cifar10.py \
+python embed_watermark_cifar10.py \
 --encoder_name ./_output/cifar10/checkpoints/*encoder.pth \
 --image_resolution 32 \
 --identical_string \
@@ -171,7 +164,7 @@ cd ../string2img
 then running the watermark detector (use CIFAR10 as example):
 
 ```
-CUDA_VISIBLE_DEVICES=0 python detect_watermark_cifar10.py
+python detect_watermark_cifar10.py
 ```
 the detection accuracy will be printed (remember to specify the predefined binary watermark string in the script).
 
@@ -223,6 +216,15 @@ If you find this project useful in your research, please consider citing our pap
     year={2023}
 }
   ```
+Meanwhile, a relevant research that aims for [Evaluating the Adversarial Robustness of Large Vision-Language Models](https://yunqing-me.github.io/AttackVLM/)
+```
+@article{zhao2023evaluate,
+  title={On Evaluating Adversarial Robustness of Large Vision-Language Models},
+  author={Zhao, Yunqing and Pang, Tianyu and Du, Chao and Yang, Xiao and Li, Chongxuan and Cheung, Ngai-Man and Lin, Min},
+  journal={arXiv preprint arXiv:2305.16934},
+  year={2023}
+}
+```
 
 # Acknowledgement 
 
