@@ -1,6 +1,6 @@
 <h1 align='center' style="text-align:center; font-weight:bold; font-size:2.0em;letter-spacing:2.0px;">
                 A Recipe for Watermarking Diffusion Models</h1>
-<p align='center' style="text-align:center;font-size:1.25em;">
+<!-- <p align='center' style="text-align:center;font-size:1.25em;">
     <a href="https://scholar.google.com/citations?user=kQA0x9UAAAAJ&hl=en" target="_blank" style="text-decoration: none;">Yunqing Zhao<sup>1</sup> </a>&nbsp;&nbsp;
     <a href="https://p2333.github.io/" target="_blank" style="text-decoration: none;">Tianyu Pang <sup>2&#8224;</sup> </a>&nbsp;&nbsp;
     <a href="https://duchao0726.github.io/" target="_blank" style="text-decoration: none;">Chao Du <sup>2&#8224;</sup> </a>&nbsp;&nbsp;
@@ -12,7 +12,7 @@
 <sup>3</sup>Tsinghua University
 <br/>
 <em>arXiv Preprint</em> &emsp;&emsp; <sup>&#8224;</sup>Equal Advice&emsp;</br>
-</p>
+</p> -->
 <p align='left' style=";font-size:1.25em;">
 <b>
     [<a href="https://yunqing-me.github.io/WatermarkDM/" target="_blank" style="text-decoration: none;">Project Page</a>] |
