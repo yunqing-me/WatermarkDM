@@ -8,19 +8,13 @@ import torch.nn as nn
 
 
 
+# for visualization with fixed text prompts, during finetuning
 
 noise = torch.randn(2, 4, 64, 64)
 torch.save(noise, f'noise_2.pt')
 
+noise = torch.randn(9, 4, 64, 64)
+torch.save(noise, f'noise_9.pt')
 
-# project_in = nn.Sequential(
-#     nn.Linear(3, 2),
-#     nn.GELU()
-# )
-# combo_net = nn.Sequential(
-#     project_in,
-#     nn.Dropout(),
-#     nn.Linear(2, 1)
-# )
-
-# print(combo_net)
+noise = torch.randn(16, 4, 64, 64)
+torch.save(noise, f'noise_16.pt')

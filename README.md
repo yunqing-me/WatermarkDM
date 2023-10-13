@@ -134,14 +134,24 @@ Activate the `edm` environment
 conda activate edm
 cd ../edm
 ```
-and start training (use conditional training on CIFAR10 as example)
+and start training (training on CIFAR10/FFHQ as examples)
 ```
+# CIFAR10 Training
+torchrun --standalone --nproc_per_node=8 train.py \
+    --outdir=training-runs \
+    --data=datasets/embedded/afhqv2_watermarked_data/images --cond=0 
+    --arch=ddpmpp --batch-gpu 64 --batch 512 --precond edm --duration 200  # train on 200M images
+
+# FFHQ/AFHQv2 Training
 torchrun --standalone --nproc_per_node=8 train.py 
     --outdir=training-runs \
-    --data=datasets/cifar10-32x32.zip 
-    --cond=1 
-    --arch=ddpmpp
+    --data=datasets/embedded/afhqv2_watermarked_data/images --cond=0 \
+    --arch=ddpmpp --batch-gpu 32 --batch=256 --duration 200 \  # train on 200M images
+    --cres=1,2,2,2 --lr=2e-4 --dropout=0.25 --augment=0.15 \
 ```
+
+where `torchrun --standalone --nproc_per_node=8` indicates the distributed training with 8 gpus. You can modify the parameters based on your hardware environment. `--cond=0` indicates unconditional training. Please refer to [edm](https://github.com/NVlabs/edm) for more training/experiment details.
+
 ## Calculating FID Score:
 We firstly generate 50,000 random images and then compare them against the dataset reference statistics (i.e., `*.npy` file) using `fid.py` (CIFAR10 as example):
 
@@ -179,6 +189,7 @@ conda activate ldm
 ```
 
 This `ldm` environment will help you obtain the watermarked text-to-image diffusion models.
+Note: in case you meet any installation errors, please refer to [here](https://github.com/CompVis/latent-diffusion).
 
 
 ## Watermarking Stable Diffusion
@@ -201,6 +212,19 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 python main.py --base configs/stable-diffusion/v1-f
 ```
 where you can tune the coef of reg to get a good trade-off. During training, you can optionally visualize the generated images using different prompts to test if the predefined watermark is properly embedded, while the performance is still good.
 
+### Experiment Configs:
+For practitioners, we suggest to use different experiment setups based on empirical results, user preference or the complexity of your watermark images, and texts. You can modify the configs in `./sd_watermark/configs/stable-diffusion/v1-finetune_unfrozen_watermark.yaml`, for example: 
+
+```
+number of adaptation steps: timesteps=1000;
+
+fixed text prompt for visualization during fine-tuning: vis_prompt="a dog and a cat playing in the mountain";
+
+number of visualized samples during fine-tuning:
+num_vis_samples: 2
+```
+If you want to try your own trigger prompt, you can modify it in
+`./sd_watermark/ldm/data/personalized_watermark.py`. We use `training_templates_smallest="[V]"` by default.
 
 
 
