@@ -225,17 +225,17 @@
         <h2 class="title is-2" >Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Recently, diffusion models (DMs) have demonstrated their advantageous potential for generative tasks. 
-            Widespread interest exists in incorporating DMs into downstream applications, such as producing or editing photorealistic images.
-            <p>
-              However, practical deployment and unprecedented power of DMs raise legal issues, including copyright protection and monitoring of generated content. 
-              In this regard, watermarking has been a proven solution for copyright protection and content monitoring, but it is underexplored in the DMs literature. 
-              Specifically, DMs generate samples from longer tracks and may have newly designed multimodal structures, necessitating the modification of conventional watermarking pipelines. 
-            </p>
-            <p>
-              To this end, we conduct comprehensive analyses and derive a recipe for efficiently watermarking state-of-theart DMs (e.g., Stable Diffusion), via training from scratch or finetuning. 
-              Our recipe is straightforward but involves empirically ablated implementation details, providing a solid foundation for future research on watermarking DMs.
-            </p>
+            Diffusion models (DMs) have demonstrated advantageous potential on generative tasks. 
+            Widespread interest exists in incorporating DMs into downstream applications, such as producing or editing photorealistic images. 
+            However, practical deployment and unprecedented power of DMs raise legal issues, including copyright protection and monitoring of generated content.   
+          <p>
+            In this regard, watermarking has been a proven solution for copyright protection and content monitoring, but it is underexplored in the DMs literature. 
+            Specifically, DMs generate samples from longer tracks and may have newly designed multimodal structures, necessitating the modification of conventional watermarking pipelines. 
+          </p>
+          <p>
+            To this end, we conduct comprehensive analyses and derive a recipe for efficiently watermarking state-of-the-art DMs (e.g., Stable Diffusion), via training from scratch or finetuning. 
+            Our recipe is straightforward but involves empirically ablated implementation details, providing a foundation for future research on watermarking DMs.
+          </p>
         </p>
         </div>
       </div>
@@ -261,106 +261,41 @@
 
     <div class="columns is-centered">
 
-      <!-- Visual Effects. -->
-      <!-- <div class="column">
-        <div class="content">
-          <h2 class="title is-3">Visual Effects</h2>
-          <p>
-            Using <i>nerfies</i> you can create fun visual effects. This Dolly zoom effect
-            would be impossible without nerfies since it would require going through a wall.
-          </p>
-          <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/dollyzoom-stacked.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-      </div> -->
-      <!--/ Visual Effects. -->
-
-      <!-- Matting. -->
-      <!-- <div class="column">
-        <h2 class="title is-3">Matting</h2>
-        <div class="columns is-centered">
-          <div class="column content">
-            <p>
-              As a byproduct of our method, we can also solve the matting problem by ignoring
-              samples that fall outside of a bounding box during rendering.
-            </p>
-            <video id="matting-video" controls playsinline height="100%">
-              <source src="./static/videos/matting.mp4"
-                      type="video/mp4">
-            </video>
-          </div>
-
-        </div>
-      </div>
-    </div> -->
-    <!--/ Matting. -->
-
-    <!-- Animation. -->
     <div class="columns is-centered">
-      <!-- <div class="column is-full-width"> -->
-        <!-- <h2 class="title is-3">Animation</h2> -->
-
-        <!-- Interpolating. -->
-        <!-- <h3 class="title is-4">Interpolating states</h3>
-        <div class="content has-text-justified">
-          <p>
-            We can also animate the scene by interpolating the deformation latent codes of two input
-            frames. Use the slider here to linearly interpolate between the left frame and the right
-            frame.
-          </p>
-        </div>
-        <div class="columns is-vcentered interpolation-panel">
-          <div class="column is-3 has-text-centered">
-            <img src="./static/images/interpolate_start.jpg"
-                 class="interpolation-image"
-                 alt="Interpolate start reference image."/>
-            <p>Start Frame</p>
-          </div>
-          <div class="column interpolation-video-column">
-            <div id="interpolation-image-wrapper">
-              Loading...
-            </div>
-            <input class="slider is-fullwidth is-large is-info"
-                   id="interpolation-slider"
-                   step="1" min="0" max="100" value="0" type="range">
-          </div>
-          <div class="column is-3 has-text-centered">
-            <img src="./static/images/interpolate_end.jpg"
-                 class="interpolation-image"
-                 alt="Interpolation end reference image."/>
-            <p class="is-bold">End Frame</p>
-          </div>
-        </div>
-        <br/> -->
-        <!--/ Interpolating. -->
-
-        <!-- Re-rendering. -->
-        <!-- <h3 class="title is-4">Re-rendering the input video</h3>
-        <div class="content has-text-justified">
-          <p>
-            Using <span class="dnerf">Nerfies</span>, you can re-render a video from a novel
-            viewpoint such as a stabilized camera by playing back the training deformations.
-          </p>
-        </div>
-        <div class="content has-text-centered">
-          <video id="replay-video"
-                 controls
-                 muted
-                 preload
-                 playsinline
-                 width="75%">
-            <source src="./static/videos/replay.mp4"
-                    type="video/mp4">
-          </video>
-        </div> -->
-        <!--/ Re-rendering. -->
 
       </div>
     </div>
     <!-- / Animation. -->
 
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Illustration of Watermark DMs</h2>
+
+        <div class="content has-text-justified">
+			<center>
+				<table align=center width=950px>
+					<tr>
+						<td width=260px>
+							<left>
+                Unconditional/Class-conditional DMs (<b>Case-1</b>) and Multi-modal text-to-image DMs (<b>Case-2</b>)
+								<img class="round" style="width:950px" src="./assets/teaser.jpg"/>
+              </left>
+						</td>
+					</tr>
+				</table>
+				<table align=center width=880px>
+					<tr>
+						<td width=260px>
+							<!-- <center>
+								<img class="round" style="width:880px" src="./resources/method.jpg"/>
+							</center> -->
+						</td>
+					</tr>
+				</table>
+			</center>
+        </div>
+      </div>
+    </div>
 
     <!-- Overview -->
     <div class="columns is-centered">
@@ -373,33 +308,11 @@
 					<tr>
 						<td width=260px>
 							<left>
-                <b>Different Generation Types:</b> Unconditional/Class-conditional DMs (<b>Top</b>) and Multi-modal text-to-image DMs (<b>Bottom</b>)
 								<img class="round" style="width:950px" src="./assets/method-watermark.jpg"/>
               </left>
 						</td>
 					</tr>
 				</table>
-				<!-- <table align=center width=880px>
-					<tr>
-						<td>
-							<p style="text-align:justify; text-justify:inter-ideograph;">
-                <h4 class="title is-5">Contributions</h4>
-							<b>1: </b>
-							We consider the problem of FSIG with Transfer Learning using very limited target samples (e.g., 10-shot). <br>
-							<b>2: </b>
-							Our work makes two contributions: 
-							<ul>
-								<li>We discover that when the close proximity assumption between source-target domain is relaxed, SOTA FSIG methods, e.g., EWC (Li et al.), CDC (Ojha et al.), DCL (Zhao et al.), 
-                  which consider only source domain/source task in knowledge preserving perform no better than a baseline fine-tuning method, e.g., TGAN, (Wang et al.).</li>
-								<li>We propose a novel adaptation-aware kernel modulation for FSIG that achieves SOTA performance across source / target domains with different proximity. </li>
-							</ul>
-							<b>3: </b>
-							Schematic diagram of our proposed Importance Probing Mechanism: 
-              We measure the importance of each kernel for the target domain after probing and preserve source domain knowledge that is important for target domain adaptation. 
-              The same operations are applied to discriminator.
-						</td>
-					</tr>
-				</table> -->
 				<table align=center width=880px>
 					<tr>
 						<td width=260px>
@@ -427,6 +340,7 @@
 						<td width=260px>
 							<center>
 								<img class="round" style="width:950px" src="./assets/edm_vis_compare.jpg"/>
+                <img class="round" style="width:950px" src="./assets/bit-acc-vs-fid.jpg"/>
 							</center>
 						</td>
 					</tr>
@@ -453,6 +367,7 @@
 						<td width=260px>
               <center>
                 <img class="round" style="width:950px" src="./assets/sd_vis_compare.jpg"/>
+                <img class="round" style="width:950px" src="./assets/sd_vis_compare_legend.jpg"/>
               </center>
 						</td>
 					</tr>
