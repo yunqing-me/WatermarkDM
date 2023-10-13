@@ -21,15 +21,15 @@
 </b>
 </p>
 
-<!-- 
-![Teaser image](./figure/teaser.jpg) -->
 
 # Overview
 Pytorch implementation for our paper: A Recipe for Watermarking Diffusion Models. As one of the pineering works, we comprehensively investigate adding an "invisible watermark" to (multi-modal) diffusion model (DM) generated contents (e.g., images in computer vision tasks), and their properties:
 
-1. For unconditional/class-conditional DMs (e.g., EDM), we investigate embedding a binary bit-string into generated images and pursuit a perfect detection/recovery from generate images with a pretrained bit-string decoder; 
+**Case 1.** For unconditional/class-conditional DMs (e.g., EDM), we investigate embedding a binary bit-string into generated images and pursuit a perfect detection/recovery from generate images with a pretrained bit-string decoder; 
 
-2. For multi-model text-to-image DMs (e.g., Stable Diffusion), we investigate embedding a predefined image-text pair in the pretrained models and pursuit a perfect recostruction/generation of the predefined image conditioned on the predefined trigger (text) prompt.
+**Case 2.** For multi-model text-to-image DMs (e.g., Stable Diffusion), we investigate embedding a predefined image-text pair in the pretrained models and pursuit a perfect recostruction/generation of the predefined image conditioned on the predefined trigger (text) prompt.
+
+![Teaser image](./figure/teaser.jpg)
 
 # Unconditional/class-conditional Diffusion Models
 
