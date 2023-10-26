@@ -164,6 +164,8 @@ torchrun --standalone --nproc_per_node=1 generate.py --outdir=cifar10_tmp --seed
 torchrun --standalone --nproc_per_node=8 fid.py calc --images=cifar10_tmp \
     --ref=./fid-refs/cifar10-32x32.npz
 ```
+where `*.pkl` should be renamed upon the name of your obtained network file, and similar for other `dir/folders`.
+
 ## Detecting Watermark from Generated Data
 Activate the `string2img` environment
 ```
