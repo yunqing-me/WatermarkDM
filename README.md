@@ -212,7 +212,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 python main.py --base configs/stable-diffusion/v1-f
                  --w_reg_weight 1e-7 \  # modify this to control the weight
                  --name temp \
 ```
-where you can tune the coef of reg to get a good trade-off. During training, you can optionally visualize the generated images using different prompts to test if the predefined watermark is properly embedded, while the performance is still good.
+where you can tune the coef of reg to get a good trade-off. During training, you can optionally visualize the generated images using different prompts to test if the predefined watermark is properly embedded, while the performance is still good. (Note: please modify the GPU index upon your GPU availability)
 
 ### Experiment Configs:
 For practitioners, we suggest to use different experiment setups based on empirical results, user preference or the complexity of your watermark images, and texts. You can modify the configs in `./sd_watermark/configs/stable-diffusion/v1-finetune_unfrozen_watermark.yaml`, for example: 
