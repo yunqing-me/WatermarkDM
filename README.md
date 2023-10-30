@@ -207,10 +207,10 @@ Then, specifying the target image and start the watermarking process:
 ```
 CUDA_VISIBLE_DEVICES=0,1,2,3 python main.py --base configs/stable-diffusion/v1-finetune_unfrozen_watermark.yaml \
                  --train --gpus 0,1,2,3 \
-                 --actual_resume ../_model_pool/sd-v1-4-full-ema.ckpt  \
-                 --data_root ../_target_samples/watermark/*/*.png \
-                 --w_reg_weight 1e-7 \
-                 --name watermark_toy_V_ft_w_reg_l1_1.0e-7 \
+                 --actual_resume 'path to sd-v1-4-full-ema.ckpt'  \
+                 --data_root 'path/folder of your target image' \
+                 --w_reg_weight 1e-7 \  # modify this to control the weight
+                 --name temp \
 ```
 where you can tune the coef of reg to get a good trade-off. During training, you can optionally visualize the generated images using different prompts to test if the predefined watermark is properly embedded, while the performance is still good.
 
@@ -233,14 +233,14 @@ If you want to try your own trigger prompt, you can modify it in
 
 # Citation
 If you find this project useful in your research, please consider citing our paper:
-  ```
-@article{zhao2023recipe,
-    title={A Recipe for Watermarking Diffusion Models},
-    author={Zhao, Yunqing and Pang, Tianyu and Du, Chao and Yang, Xiao and Cheung, Ngai-Man and Lin, Min},
-    journal={arXiv preprint arXiv:2303.10137},
-    year={2023}
+```
+@inproceedings{zhao2023evaluate,
+  title={On Evaluating Adversarial Robustness of Large Vision-Language Models},
+  author={Zhao, Yunqing and Pang, Tianyu and Du, Chao and Yang, Xiao and Li, Chongxuan and Cheung, Ngai-Man and Lin, Min},
+  booktitle={Thirty-seventh Conference on Neural Information Processing Systems},
+  year={2023}
 }
-  ```
+```
 Meanwhile, a relevant research that aims for [Evaluating the Adversarial Robustness of Large Vision-Language Models](https://yunqing-me.github.io/AttackVLM/)
 ```
 @article{zhao2023evaluate,
