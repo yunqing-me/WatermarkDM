@@ -40,7 +40,7 @@ Pytorch implementation for our paper: A Recipe for Watermarking Diffusion Models
 A suitable conda environment named `string2img` can be created and activated with:
 
 ```
-conda env create -f string2img.yaml
+conda env create -f string2img.yml
 conda activate string2img
 ```
 
@@ -53,7 +53,7 @@ This `string2img` environment will help you embed the predefined binary watermar
 A suitable conda environment named `edm` can be created and activated with:
 
 ```
-conda env create -f edm.yaml -n edm
+conda env create -f edm.yml -n edm
 conda activate edm
 ```
 
@@ -186,7 +186,7 @@ the detection accuracy will be printed (remember to specify the predefined binar
 A suitable conda environment named ```ldm``` can be created and activated with:
 
 ```
-conda env create -f ldm.yaml
+conda env create -f ldm.yml
 conda activate ldm
 ```
 
