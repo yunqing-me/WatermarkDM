@@ -234,19 +234,19 @@ If you want to try your own trigger prompt, you can modify it in
 # Citation
 If you find this project useful in your research, please consider citing our paper:
 ```
-@inproceedings{zhao2023evaluate,
-  title={On Evaluating Adversarial Robustness of Large Vision-Language Models},
-  author={Zhao, Yunqing and Pang, Tianyu and Du, Chao and Yang, Xiao and Li, Chongxuan and Cheung, Ngai-Man and Lin, Min},
-  booktitle={Thirty-seventh Conference on Neural Information Processing Systems},
+@article{zhao2023recipe,
+  title={A recipe for watermarking diffusion models},
+  author={Zhao, Yunqing and Pang, Tianyu and Du, Chao and Yang, Xiao and Cheung, Ngai-Man and Lin, Min},
+  journal={arXiv preprint arXiv:2303.10137},
   year={2023}
 }
 ```
 Meanwhile, a relevant research that aims for [Evaluating the Adversarial Robustness of Large Vision-Language Models](https://yunqing-me.github.io/AttackVLM/)
 ```
-@article{zhao2023evaluate,
+@inproceedings{zhao2023evaluate,
   title={On Evaluating Adversarial Robustness of Large Vision-Language Models},
   author={Zhao, Yunqing and Pang, Tianyu and Du, Chao and Yang, Xiao and Li, Chongxuan and Cheung, Ngai-Man and Lin, Min},
-  journal={arXiv preprint arXiv:2305.16934},
+  booktitle={Thirty-seventh Conference on Neural Information Processing Systems},
   year={2023}
 }
 ```
