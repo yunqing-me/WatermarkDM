@@ -23,11 +23,11 @@
 
 
 # Overview
-Pytorch implementation for our paper: A Recipe for Watermarking Diffusion Models. As one of the pineering works, we comprehensively investigate adding an "invisible watermark" to (multi-modal) diffusion model (DM) generated contents (e.g., images in computer vision tasks), and their properties:
+PyTorch implementation for our paper: A Recipe for Watermarking Diffusion Models. As one of the pioneering works, we comprehensively investigate adding an "invisible watermark" to (multi-modal) diffusion model (DM) generated contents (e.g., images in computer vision tasks), and their properties:
 
 **Case 1.** For unconditional/class-conditional DMs (e.g., EDM), we investigate embedding a binary bit-string into generated images and pursuit a perfect detection/recovery from generate images with a pretrained bit-string decoder; 
 
-**Case 2.** For multi-model text-to-image DMs (e.g., Stable Diffusion), we investigate embedding a predefined image-text pair in the pretrained models and pursuit a perfect recostruction/generation of the predefined image conditioned on the predefined trigger (text) prompt.
+**Case 2.** For multi-model text-to-image DMs (e.g., Stable Diffusion), we investigate embedding a predefined image-text pair in the pretrained models and pursuit a perfect reconstruction/generation of the predefined image conditioned on the predefined trigger (text) prompt.
 
 ![Teaser image](./figure/teaser.jpg)
 
@@ -69,11 +69,11 @@ cd ./edm
 ```
 then we can start to process the data.
 
-We follow [EDM](https://github.com/NVlabs/edm) to test our models on four datasets. Datasets are stored in the same format as in [StyleGAN](https://github.com/NVlabs/stylegan3): uncompressed ZIP archives containing uncompressed PNG files and a metadata file `dataset.json` for labels. Custom datasets can be created from a folder containing images; see [`python dataset_tool.py --help`](./docs/dataset-tool-help.txt) for more information. Examples for CIFAR-10 and FFHQ, and similarly for [Animal Faces-HQ dataset](https://github.com/clovaai/stargan-v2/blob/master/README.md#animal-faces-hq-dataset-afhq) (AFHQv2) and [ImageNet Object Localization Challenge](https://www.kaggle.com/competitions/imagenet-object-localization-challenge/data) (ImageNet):
+We follow [EDM](https://github.com/NVlabs/edm) to test our models on four datasets. Datasets are stored in the same format as in [StyleGAN](https://github.com/NVlabs/stylegan3): uncompressed ZIP archives containing uncompressed PNG files and a metadata file `dataset.json` for labels. Custom datasets can be created from a folder containing images; see [`python dataset_tool.py --help`](./edm/docs/dataset-tool-help.txt) for more information. Examples for CIFAR-10 and FFHQ, and similarly for [Animal Faces-HQ dataset](https://github.com/clovaai/stargan-v2/blob/master/README.md#animal-faces-hq-dataset-afhq) (AFHQv2) and [ImageNet Object Localization Challenge](https://www.kaggle.com/competitions/imagenet-object-localization-challenge/data) (ImageNet):
 
 **CIFAR-10:** Download the [CIFAR-10 python version](https://www.cs.toronto.edu/~kriz/cifar.html) and convert to ZIP archive:
 
-```.bash
+```bash
 python dataset_tool.py --source=downloads/cifar10/cifar-10-python.tar.gz \
     --dest=datasets/cifar10-32x32.zip
 python fid.py ref --data=datasets/cifar10-32x32.zip --dest=fid-refs/cifar10-32x32.npz
@@ -81,7 +81,7 @@ python fid.py ref --data=datasets/cifar10-32x32.zip --dest=fid-refs/cifar10-32x3
 
 **FFHQ:** Download the [Flickr-Faces-HQ dataset](https://github.com/NVlabs/ffhq-dataset) as 1024x1024 images and convert to ZIP archive at 64x64 resolution (Remark: archive version [here](https://archive.org/download/ffhq-dataset) that can be easily downloaded via `wget`):
 
-```.bash
+```bash
 python dataset_tool.py --source=downloads/ffhq/images1024x1024 \
     --dest=datasets/ffhq-64x64.zip --resolution=64x64
 python fid.py ref --data=datasets/ffhq-64x64.zip --dest=fid-refs/ffhq-64x64.npz
@@ -111,9 +111,9 @@ python train_cifar10.py \
 --data_dir ../edm/datasets/uncompressed/cifar10 \
 --image_resolution 32 \
 --output_dir ./_output/cifar10 \
---bit_length 64 \ 
+--bit_length 64 \
 --batch_size 64 \
---num_epochs 100 \
+--num_epochs 100
 ```
 Typically this can be finished in few hours. In this way, you will obtain the pretrained watermark encoder/decoder with your specified bit length. 
 
@@ -124,7 +124,7 @@ python embed_watermark_cifar10.py \
 --image_resolution 32 \
 --identical_fingerprints \
 --batch_size 128 \
---bit_length 64 \
+--bit_length 64
 ```
 
 ## Training the Unconditional/class-conditional Diffusion Models
@@ -139,15 +139,16 @@ and start training (training on CIFAR10/FFHQ as examples)
 # CIFAR10 Training
 torchrun --standalone --nproc_per_node=8 train.py \
     --outdir=training-runs \
-    --data=datasets/embedded/afhqv2_watermarked_data/images --cond=0 
+    --data=datasets/embedded/afhqv2_watermarked_data/images --cond=0 \
     --arch=ddpmpp --batch-gpu 64 --batch 512 --precond edm --duration 200  # train on 200M images
 
 # FFHQ/AFHQv2 Training
-torchrun --standalone --nproc_per_node=8 train.py 
+# Train on 200M images
+torchrun --standalone --nproc_per_node=8 train.py \
     --outdir=training-runs \
     --data=datasets/embedded/afhqv2_watermarked_data/images --cond=0 \
-    --arch=ddpmpp --batch-gpu 32 --batch=256 --duration 200 \  # train on 200M images
-    --cres=1,2,2,2 --lr=2e-4 --dropout=0.25 --augment=0.15 \
+    --arch=ddpmpp --batch-gpu 32 --batch=256 --duration 200 \
+    --cres=1,2,2,2 --lr=2e-4 --dropout=0.25 --augment=0.15
 ```
 
 where `torchrun --standalone --nproc_per_node=8` indicates the distributed training with 8 gpus. You can modify the parameters based on your hardware environment. `--cond=0` indicates unconditional training. Please refer to [edm](https://github.com/NVlabs/edm) for more training/experiment details.
@@ -205,12 +206,13 @@ Firstly, follow the `HuggingFace` ([link](https://huggingface.co/CompVis)) to do
 Then, specifying the target image and start the watermarking process:
 
 ```
+# Modify --w_reg_weight to control the weight
 CUDA_VISIBLE_DEVICES=0,1,2,3 python main.py --base configs/stable-diffusion/v1-finetune_unfrozen_watermark.yaml \
                  --train --gpus 0,1,2,3 \
                  --actual_resume 'path to sd-v1-4-full-ema.ckpt'  \
                  --data_root 'path/folder of your target image' \
-                 --w_reg_weight 1e-7 \  # modify this to control the weight
-                 --name temp \
+                 --w_reg_weight 1e-7 \
+                 --name temp
 ```
 where you can tune the coef of reg to get a good trade-off. During training, you can optionally visualize the generated images using different prompts to test if the predefined watermark is properly embedded, while the performance is still good. (Note: please modify the GPU index upon your GPU availability)
 
