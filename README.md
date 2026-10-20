@@ -23,11 +23,11 @@
 
 
 # Overview
-PyTorch implementation for our paper: A Recipe for Watermarking Diffusion Models. As one of the pioneering works, we comprehensively investigate adding an "invisible watermark" to (multi-modal) diffusion model (DM) generated contents (e.g., images in computer vision tasks), and their properties:
+PyTorch implementation of our paper: A Recipe for Watermarking Diffusion Models. As one of the pioneering works in this area, our paper comprehensively investigates adding an "invisible watermark" to (multi-modal) diffusion model (DM) generated content (e.g., images in computer vision tasks), and their properties:
 
-**Case 1.** For unconditional/class-conditional DMs (e.g., EDM), we investigate embedding a binary bit-string into generated images and pursuit a perfect detection/recovery from generate images with a pretrained bit-string decoder; 
+**Case 1.** For unconditional/class-conditional DMs (e.g., EDM), we investigate embedding a binary bit-string into generated images and pursue perfect detection/recovery from generated images with a pretrained bit-string decoder;
 
-**Case 2.** For multi-model text-to-image DMs (e.g., Stable Diffusion), we investigate embedding a predefined image-text pair in the pretrained models and pursuit a perfect reconstruction/generation of the predefined image conditioned on the predefined trigger (text) prompt.
+**Case 2.** For multimodal text-to-image DMs (e.g., Stable Diffusion), we investigate embedding a predefined image-text pair in the pretrained models and pursue perfect reconstruction/generation of the predefined image conditioned on the predefined trigger (text) prompt.
 
 ![Teaser image](./figure/teaser.jpg)
 
@@ -115,7 +115,7 @@ python train_cifar10.py \
 --batch_size 64 \
 --num_epochs 100
 ```
-Typically this can be finished in few hours. In this way, you will obtain the pretrained watermark encoder/decoder with your specified bit length. 
+Typically, this can be finished in a few hours. In this way, you will obtain the pretrained watermark encoder/decoder with your specified bit length.
 
 ## Embedding Binary Watermark String in the Training Data
 
@@ -154,7 +154,7 @@ torchrun --standalone --nproc_per_node=8 train.py \
 where `torchrun --standalone --nproc_per_node=8` indicates the distributed training with 8 gpus. You can modify the parameters based on your hardware environment. `--cond=0` indicates unconditional training. Please refer to [edm](https://github.com/NVlabs/edm) for more training/experiment details.
 
 ## Calculating FID Score:
-We firstly generate 50,000 random images and then compare them against the dataset reference statistics (i.e., `*.npy` file) using `fid.py` (CIFAR10 as example):
+We first generate 50,000 random images and then compare them against the dataset reference statistics (i.e., `*.npy` file) using `fid.py` (CIFAR10 as example):
 
 ```
 # Generate 50000 images and save them as cifar10_tmp/*/*.png
@@ -173,7 +173,7 @@ Activate the `string2img` environment
 conda activate string2img
 cd ../string2img
 ```
-then running the watermark detector (use CIFAR10 as example):
+then run the watermark detector (use CIFAR10 as example):
 
 ```
 python detect_watermark_cifar10.py
@@ -203,7 +203,7 @@ cd sd_watermark
 
 Firstly, follow the `HuggingFace` ([link](https://huggingface.co/CompVis)) to download the checkpoints (we use `sd-v1-4-full-ema.ckpt`)
 
-Then, specifying the target image and start the watermarking process:
+Then, specify the target image and start the watermarking process:
 
 ```
 # Modify --w_reg_weight to control the weight
@@ -243,7 +243,7 @@ If you find this project useful in your research, please consider citing our pap
   year={2023}
 }
 ```
-Meanwhile, a relevant research that aims for [Evaluating the Adversarial Robustness of Large Vision-Language Models](https://yunqing-me.github.io/AttackVLM/)
+Meanwhile, related research that aims at [Evaluating the Adversarial Robustness of Large Vision-Language Models](https://yunqing-me.github.io/AttackVLM/)
 ```
 @inproceedings{zhao2023evaluate,
   title={On Evaluating Adversarial Robustness of Large Vision-Language Models},
@@ -255,8 +255,8 @@ Meanwhile, a relevant research that aims for [Evaluating the Adversarial Robustn
 
 # Acknowledgement 
 
-We use the base implementation from [EDM](https://github.com/NVlabs/edm) for training diffusion models of unconditional/class-conditional generation.
-We appreciate the wonderful base implementation from [Yu etal.](https://github.com/ningyu1991/ArtificialGANFingerprints) for adding fingerprint to Generative Adversarial Networks. 
+We use the base implementation from [EDM](https://github.com/NVlabs/edm) for training diffusion models for unconditional/class-conditional generation.
+We appreciate the wonderful base implementation from [Yu et al.](https://github.com/ningyu1991/ArtificialGANFingerprints) for adding fingerprint to Generative Adversarial Networks.
 We thank the authors of [Stable Diffusion](https://github.com/CompVis/stable-diffusion), [DreamBooth](https://github.com/XavierXiao/Dreambooth-Stable-Diffusion) (implemented by [XavierXiao](https://xavierxiao.github.io/)) for sharing their code/checkpoints of text-to-image diffusion models.
 
 

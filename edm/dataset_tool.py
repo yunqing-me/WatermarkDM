@@ -339,11 +339,11 @@ def main(
     --dest /path/to/dataset.zip         Save output files into /path/to/dataset.zip
 
     The output dataset format can be either an image folder or an uncompressed zip archive.
-    Zip archives makes it easier to move datasets around file servers and clusters, and may
+    Zip archives make it easier to move datasets around file servers and clusters, and may
     offer better training performance on network file systems.
 
     Images within the dataset archive will be stored as uncompressed PNG.
-    Uncompresed PNGs can be efficiently decoded in the training loop.
+    Uncompressed PNGs can be efficiently decoded in the training loop.
 
     Class labels are stored in a file called 'dataset.json' that is stored at the
     dataset root folder.  This file has the following structure:
