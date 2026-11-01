@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="description" content="WatermarkDM: two recipes for watermarking diffusion models through training and finetuning, with original experiments and a 2026 perspective on verifiable provenance.">
-  <meta name="keywords" content="WatermarkDM, diffusion models, watermarking, provenance">
+  <meta name="description" content="WatermarkDM: two recipes for watermarking diffusion models, with experiments on watermark recovery, generation quality, and finetuning.">
+  <meta name="keywords" content="WatermarkDM, diffusion models, watermarking">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yunqing-me.github.io/WatermarkDM/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="WatermarkDM: A Recipe for Watermarking Diffusion Models">
-  <meta property="og:description" content="Two watermarking recipes for diffusion models, with original results and a 2026 perspective on verifiable provenance.">
+  <meta property="og:description" content="WatermarkDM: two recipes for watermarking diffusion models, with experiments on watermark recovery, generation quality, and finetuning.">
   <meta property="og:url" content="https://yunqing-me.github.io/WatermarkDM/">
   <meta property="og:image" content="https://yunqing-me.github.io/WatermarkDM/assets/teaser.jpg">
   <meta property="og:image:alt" content="WatermarkDM's two recipes: detect a binary watermark in generated images, or verify a model with a trigger prompt.">
@@ -114,15 +114,6 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-<aside class="retrospective-note" aria-labelledby="retrospective-title">
-  <h2 class="title is-4" id="retrospective-title">From Watermarks to Verifiable Provenance</h2>
-  <div class="content">
-    <p>In 2023, <a href="https://arxiv.org/abs/2303.10137">WatermarkDM</a> explored two ways to make diffusion models identifiable: recover a binary signature from generated images, or elicit a predefined image with a trigger prompt. The goal was traceability while accounting for generation quality.</p>
-    <p>By 2026, provenance has become an <strong class="key-finding">infrastructure problem</strong>. Google's <a href="https://deepmind.google/models/synthid/">SynthID</a> spans multiple media types; <a href="https://help.openai.com/en/articles/8912793-provenance-signals-in-openai-generated-content">OpenAI</a> combines watermarks with metadata and verification tools. These layers answer different questions: a watermark supports source attribution, while signed <a href="https://spec.c2pa.org/specifications/specifications/2.2/explainer/Explainer.html">C2PA credentials</a> record declared creation and edit history. Neither establishes factual truth.</p>
-    <p>Research should therefore move from isolated bit recovery to <strong class="key-finding">attribution under a specified threat model</strong>. Benchmarks should fix a false-positive budget, test editing, regeneration, and model adaptation, and permit an “unknown” result when evidence is insufficient. The target is a source claim whose reliability can be measured across the distribution pipeline.</p>
-  </div>
-  <p class="retrospective-date"><time datetime="2026-11">Nov. 2026</time></p>
-</aside>
         <h2 class="title is-2">Abstract</h2>
         <div class="content has-text-justified">
 <p>
